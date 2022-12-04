@@ -1,0 +1,188 @@
+{
+  "name": "GetterAndSetterGenerator",
+  "displayName": "Getter and Setter Generator",
+  "description": "This extension generate get and set methods from the class variable declarations.",
+  "version": "1.0.3",
+  "publisher": "afmicc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/afmicc/getter-setter-generator"
+  },
+  "engines": {
+    "vscode": "^1.20.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.generateGetterAndSetters",
+    "onCommand:extension.generateCode",
+    "onCommand:extension.generateTranslate",
+    "onCommand:extension.formatClasses",
+    "onCommand:extension.generateReplace",
+    "onCommand:extension.generateNewFile",
+    "onCommand:extension.generateTemplate",
+    "onCommand:extension.generateSort",
+    "onCommand:extension.formatStyleSheet",
+    "onCommand:extension.formatWeixinStyleSheet"
+  ],
+  "main": "./extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.generateComments",
+        "title": "粘贴评注"
+      },
+      {
+        "command": "extension.generateGetterAndSetters",
+        "title": "querySelector"
+      },
+      {
+        "command": "extension.generateCode",
+        "title": "翻译函数"
+      },
+      {
+        "command": "extension.generateTranslate",
+        "title": "翻译中文"
+      },
+      {
+        "command": "extension.generateAcccessRecords",
+        "title": "生成访问记录"
+      },
+      {
+        "command": "extension.formatClasses",
+        "title": "格式化HTML内联样式"
+      },
+      {
+        "command": "extension.generateReplace",
+        "title": "Generate replace"
+      },
+      {
+        "command": "extension.generateNewFile",
+        "title": "Generate new file"
+      },
+      {
+        "command": "extension.generateTemplate",
+        "title": "删除空行"
+      },
+      {
+        "command": "extension.generateComponent",
+        "title": "创建组件"
+      },
+      {
+        "command": "extension.generateSort",
+        "title": "排序函数"
+      },
+      {
+        "command": "extension.formatStyleSheet",
+        "title": "格式化样式"
+      },
+      {
+        "command": "extension.formatWeixinStyleSheet",
+        "title": "格式化微信样式"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "submenu": "submenus",
+          "group": "uncommon"
+        }
+      ],
+      "submenus": [
+        {
+          "command": "extension.generateSort",
+          "when": "editorTextFocus",
+          "group": "uncommon"
+        },
+        {
+          "command": "extension.generateComponent",
+          "when": "editorTextFocus",
+          "group": "uncommon"
+        },
+        {
+          "command": "extension.generateGetterAndSetters",
+          "when": "editorTextFocus",
+          "group": "uncommon"
+        },
+        {
+          "command": "extension.generateCode",
+          "when": "editorTextFocus",
+          "group": "uncommon"
+        },
+        {
+          "command": "extension.generateTranslate",
+          "when": "editorTextFocus",
+          "group": "uncommon"
+        },
+        {
+          "command": "extension.generateNew",
+          "when": "editorTextFocus",
+          "group": "uncommon"
+        },
+        {
+          "command": "extension.formatClasses",
+          "when": "editorTextFocus",
+          "group": "uncommon"
+        },
+        {
+          "command": "extension.generateReplace",
+          "when": "editorTextFocus",
+          "group": "uncommon"
+        },
+        {
+          "command": "extension.generateNewFile",
+          "when": "editorTextFocus",
+          "group": "uncommon"
+        },
+        {
+          "command": "extension.generateTemplate",
+          "when": "editorTextFocus",
+          "group": "uncommon"
+        },
+        {
+          "command": "extension.formatStyleSheet",
+          "when": "editorTextFocus",
+          "group": "uncommon"
+        },
+        {
+          "command": "extension.formatWeixinStyleSheet",
+          "when": "editorTextFocus",
+          "group": "uncommon"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "label": "功能",
+        "id": "submenus"
+      }
+    ]
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.6",
+    "eslint": "^4.11.0",
+    "@types/node": "^7.0.43",
+    "@types/mocha": "^2.2.42"
+  },
+  "__metadata": {
+    "id": "860ee701-e00f-4562-a4fb-8ae6ad52513f",
+    "publisherId": "b04d9321-40b3-4908-92d7-5b9a7e0e18bf",
+    "publisherDisplayName": "Agustin Martinez Ibarra",
+    "targetPlatform": "undefined",
+    "isApplicationScoped": false,
+    "updated": false,
+    "isPreReleaseVersion": false,
+    "preRelease": false,
+    "installedTimestamp": 1660255027357
+  },
+  "dependencies": {
+    "js-beautify": "^1.14.6",
+    "pg": "^8.7.3"
+  }
+}
