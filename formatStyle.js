@@ -18,7 +18,7 @@ module.exports = () => {
     let validFullRange = editor.document.validateRange(invalidRange);
     const text = editor.document.getText()
     if (text.indexOf("</style>") !== -1) {
-        let str =k.startsWith('<') ? text
+        let str = k.startsWith('<') ? text
             .replace('</style>', `${k.slice(1)}{
             ${ss}
             }
@@ -37,6 +37,9 @@ module.exports = () => {
     } else {
         console.log(k)
         let fileName = changeExtension(getFileName(), ".css");
+        if (!fs.existsSync(fileName)) {
+            fileName = changeExtension(getFileName(), ".wxss");
+        }
         if (fs.existsSync(fileName)) {
             let string = fs.readFileSync(fileName).toString();
             string += k.startsWith('<') ? `${k.slice(1)}{

@@ -18,6 +18,7 @@ const {
 
 function activate(context) {
 
+    require('./newFile')(context);
     // Ctrl+W
     let disposable = vscode.commands.registerCommand('extension.generateGetterAndSetters', async function () {
         //compileC()
@@ -135,48 +136,6 @@ var client = new HttpClient(new HttpClientHandler
     });
     context.subscriptions.push(generateReplace);
 
-    let generateNewFile = vscode.commands.registerCommand('extension.generateNewFile', async function () {
-        let fileName = vscode.window.activeTextEditor.document.fileName;
-        // https://nodejs.org/api/fs.html
-        const s = await vscode.env.clipboard.readText();
-        if (s.startsWith(".")) {
-            fileName =require('path').dirname(fileName); //vscode.workspace.workspaceFolders[0].uri.fsPath + "\\handlers";
-            if (!fs.existsSync(fileName)) {
-                fs.mkdirSync(fileName);
-            }
-            fileName += "\\" + s.slice(1)+".go";
-            if (!fs.existsSync(fileName)) {
-                fs.writeFileSync(fileName, `package handlers`);
-            }
-            return
-        }
-        if (s.indexOf("\\") !== -1) {
-            const pieces = s.split("\\");
-            fileName = require('path').dirname(fileName);//vscode.workspace.workspaceFolders[0].uri.fsPath
-            for (let i = 0; i < pieces.length - 1; i++) {
-                fileName += "\\" + pieces[i];
-                if (!fs.existsSync(fileName)) {
-                    fs.mkdirSync(fileName);
-                }
-            }
-            fileName += "\\" + pieces[pieces.length - 1];
-            if (!fs.existsSync(fileName)) {
-                fs.writeFileSync(fileName, ``);
-            }
-            return;
-        }
-        fileName = substringBeforeLast(fileName, "\\") + "\\" + s;
-
-        if (!fs.existsSync(fileName)) {
-            if (fileName.indexOf('.') !== -1) {
-                fs.writeFileSync(fileName, ``);
-            } else
-                fs.mkdirSync(fileName);
-        }
-
-
-    });
-    context.subscriptions.push(generateNewFile);
 
     let generateTemplate = vscode.commands.registerCommand('extension.generateTemplate', async function () {
         var editor = vscode.window.activeTextEditor;
