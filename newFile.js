@@ -5,54 +5,62 @@ const {changeExtension} = require("./utils");
 
 const COMMAND = 'extension.generateNewFile';
 
-function createWeChatComponents(fileName, strings) {
-    if (!strings.endsWith(".wxss")) return false;
-    const dir = path.dirname(fileName);
+function replaceParameters(obj, strings) {
+    return strings.replaceAll(/{{([^}]+)}}/g,
+        m => {
+            return obj[/{{([^}]+)}}/.exec(m)[1]];
+        });
+}
+
+function writeFile(fileName, template, obj) {
+    if (!fs.existsSync(fileName)) {
+        createFileIfNotExists(template);
+        fs.writeFileSync(fileName, replaceParameters(obj, fs.readFileSync(template).toString()));
+    }
+}
+function createWeChatPage(fileName, strings) {
+    if (!strings.endsWith(".wxml")) return false;
+    let dir = path.dirname(fileName);
     fileName = path.join(dir, strings);
     const obj = {
         name: substringBeforeLast(strings, '.'),
         Name: camel(substringBeforeLast(strings, '.'))
     };
-    let template = `C:\\Users\\Administrator\\Desktop\\Resources\\模板\\微信Wxss.txt`;
-    if (!fs.existsSync(fileName)) {
-        createFileIfNotExists(template);
-        fs.writeFileSync(fileName, fs.readFileSync(template)
-            .toString().replaceAll(/{{([^}]+)}}/g,
-                m => {
-                    return obj[/{{([^}]+)}}/.exec(m)[1]];
-                }));
-    }
-    template = `C:\\Users\\Administrator\\Desktop\\Resources\\模板\\微信Wxml.txt`;
-    fileName =changeExtension(fileName, ".wxml");
-    if (!fs.existsSync(fileName)) {
-        createFileIfNotExists(template);
-        fs.writeFileSync(fileName, fs.readFileSync(template)
-            .toString().replaceAll(/{{([^}]+)}}/g,
-                m => {
-                    return obj[/{{([^}]+)}}/.exec(m)[1]];
-                }));
-    }
-    template = `C:\\Users\\Administrator\\Desktop\\Resources\\模板\\微信Js.txt`;
-    fileName = changeExtension(fileName, ".js");
-    if (!fs.existsSync(fileName)) {
-        createFileIfNotExists(template);
-        fs.writeFileSync(fileName, fs.readFileSync(template)
-            .toString().replaceAll(/{{([^}]+)}}/g,
-                m => {
-                    return obj[/{{([^}]+)}}/.exec(m)[1]];
-                }));
-    }
-
-    template = `C:\\Users\\Administrator\\Desktop\\Resources\\模板\\微信Json.txt`;
-    fileName = changeExtension(fileName, ".json");
-    if (!fs.existsSync(fileName)) {
-        createFileIfNotExists(template);
-        fs.writeFileSync(fileName, fs.readFileSync(template)
-            .toString().replaceAll(/{{([^}]+)}}/g,
-                m => {
-                    return obj[/{{([^}]+)}}/.exec(m)[1]];
-                }));
-    }
+    dir = "C:\\Users\\Administrator\\Desktop\\Resources\\模板";
+    [
+        ["微信页面Wxml.txt"],
+        ["微信页面Wxss.txt", ".wxss"],
+        ["微信页面Js.txt", ".js"],
+        ["微信页面Json.txt", ".json"],
+    ].forEach(k => {
+        if (k.length < 2) {
+            writeFile(fileName, path.join(dir, k[0]), obj);
+        } else {
+            writeFile(changeExtension(fileName, k[1]), path.join(dir, k[0]), obj);
+        }
+    })
+}
+function createWeChatComponents(fileName, strings) {
+    if (!strings.endsWith(".wxss")) return false;
+    let dir = path.dirname(fileName);
+    fileName = path.join(dir, strings);
+    const obj = {
+        name: substringBeforeLast(strings, '.'),
+        Name: camel(substringBeforeLast(strings, '.'))
+    };
+    dir = "C:\\Users\\Administrator\\Desktop\\Resources\\模板";
+    [
+        ["微信Wxss.txt"],
+        ["微信Wxml.txt", ".wxml"],
+        ["微信Js.txt", ".js"],
+        ["微信Json.txt", ".json"],
+    ].forEach(k => {
+        if (k.length < 2) {
+            writeFile(fileName, path.join(dir, k[0]), obj);
+        } else {
+            writeFile(changeExtension(fileName, k[1]), path.join(dir, k[0]), obj);
+        }
+    })
 }
 
 function createGoFile(fileName, strings) {
@@ -141,6 +149,7 @@ module.exports = (context) => {
         const fileName = vscode.window.activeTextEditor.document.fileName;
         const strings = await vscode.env.clipboard.readText();
         if (createGoFile(fileName, strings)) return;
+        if (createWeChatPage(fileName, strings)) return;
         if (createWeChatComponents(fileName, strings)) return;
         createRegularFile(fileName, strings);
     }));
