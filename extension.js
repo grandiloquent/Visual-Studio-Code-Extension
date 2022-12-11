@@ -19,49 +19,7 @@ const {
 function activate(context) {
 
     require('./newFile')(context);
-    // Ctrl+W
-    let disposable = vscode.commands.registerCommand('extension.generateGetterAndSetters', async function () {
-        //compileC()
-        // const s = await vscode.env.clipboard.readText();
-        // const k = [...s.matchAll(/class="([^"]+)"/g)].map(x => x[1]);
-        // let value = '';
-        // const b1 = [];
-        // const b2 = [];
-        // const b3 = [];
-        // const b4 = [];
-        // for (const string of k) {
-        //     b1.push(`const ${camel(string)} = this.root.querySelector('.${string}');`);
-        //     b2.push(`else if (attrName === '${string}') {
-        //     this.root.querySelector('.${string}').textContent = newVal;
-        //     }`);
-        //     b3.push(`"${string}"`)
-        //     b4.push(`element.setAttribute("${string}","");`)
-        // }
-        // value = `/*
-        // ${b3.join(',')}
-        // ${b1.join('\n')}${b2.join('\n')}
-        // ${b4.join('\n')}
-        // */`
-        // const editor = vscode.window.activeTextEditor;
-        // if (!editor)
-        //     return; // No open text editor
-        // try {
-        //
-        //     editor.edit(
-        //         edit => editor.selections.forEach(
-        //             selection => {
-        //                 edit.replace(selection, value);
-        //             }
-        //         )
-        //     );
-        //     vscode.commands.executeCommand('editor.action.formatSelection');
-        // } catch (error) {
-        //     console.log(error);
-        //     vscode.window.showErrorMessage('Something went wrong! Try that the properties are in this format: "private String name;"');
-        // }
-
-        require('./querySelector')();
-    });
+    require('./querySelector')(context);
 
     context.subscriptions.push(disposable);
 

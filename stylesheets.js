@@ -30,7 +30,9 @@ function formatWeChat(strings) {
             return x.replace(/var\([^\)]+\)/g, m => {
                 const key = /--[a-zA-Z0-9-]+/.exec(m)[0];
                 const founded = properties.filter(x => x.key === key);
-                return founded ? founded[0]["value"] : ''
+                const value=/,([^\)]+)\)/.exec(m);
+                console.log(founded)
+                return founded&&founded.length ? founded[0]["value"] : ((value&&value[1])||'')
             });
         });
     const s = source.join(';').replaceAll(/[\d.]+px/g, m => {

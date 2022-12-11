@@ -15,7 +15,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.generateGetterAndSetters",
+    "onCommand:extension.querySelector",
     "onCommand:extension.generateCode",
     "onCommand:extension.generateTranslate",
     "onCommand:extension.formatClasses",
@@ -34,7 +34,7 @@
         "title": "粘贴评注"
       },
       {
-        "command": "extension.generateGetterAndSetters",
+        "command": "extension.querySelector",
         "title": "querySelector"
       },
       {
@@ -101,7 +101,7 @@
           "group": "uncommon"
         },
         {
-          "command": "extension.generateGetterAndSetters",
+          "command": "extension.querySelector",
           "when": "editorTextFocus",
           "group": "uncommon"
         },

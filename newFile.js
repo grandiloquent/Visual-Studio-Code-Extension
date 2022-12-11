@@ -46,7 +46,8 @@ function createWeChatComponents(fileName, strings) {
     fileName = path.join(dir, strings);
     const obj = {
         name: substringBeforeLast(strings, '.'),
-        Name: camel(substringBeforeLast(strings, '.'))
+        nameName: camel(substringBeforeLast(strings, '.')),
+        NameName: upperCamel(substringBeforeLast(strings, '.'))
     };
     dir = "C:\\Users\\Administrator\\Desktop\\Resources\\模板";
     [
@@ -61,6 +62,9 @@ function createWeChatComponents(fileName, strings) {
             writeFile(changeExtension(fileName, k[1]), path.join(dir, k[0]), obj);
         }
     })
+    vscode.env.clipboard.writeText(`"${obj.name}":"../../components/${obj.name}"
+    <${obj.name} bind:submit="on{{Name}}Submit"></${obj.name}>
+    `)
 }
 
 function createGoFile(fileName, strings) {
